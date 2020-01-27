@@ -92,7 +92,7 @@ use(async (req, res, next) => {
   next()
 })
 
-use((req, res, next) => {
+use(async (req, res, next) => {
   const dir = await req.plugin.nvim.call('expand', '%:p:h')
   const files = walk(dir)
   const file = dir + decodeURI(req.asPath)
