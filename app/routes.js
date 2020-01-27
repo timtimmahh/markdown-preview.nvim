@@ -8,6 +8,21 @@ const use = function (route) {
   routes.unshift((req, res, next) => () => route(req, res, next))
 }
 
+var walk = function(dir) {
+  var results = []
+  var list = fs.readdirSync(dir)
+  list.forEach(function(file) {
+    file = path.join(dir, file)
+    var stat = fs.statSync(file)
+    if (stat && stat.isDirectory()) {
+      results = results.concat(walk(file))
+    } else {
+      results.push(file)
+    }
+  })
+  return results
+}
+
 // /page/:number
 use((req, res, next) => {
   if (/\/page\/\d+/.test(req.asPath)) {
@@ -73,6 +88,16 @@ use(async (req, res, next) => {
       }
       logger.error('image not exists: ', imgPath)
     }
+  }
+  next()
+})
+
+use((req, res, next) => {
+  const dir = await re.plugin.nvim.call('expand', '%:p:h')
+  const files = walk(dir)
+  const file = dir + decodeURI(req.asPath)
+  if (files.includes(file)) {
+    return fs.createReadStream(file).pipe(res)
   }
   next()
 })

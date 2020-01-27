@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.11.7",
+    "eslint": "^6.8.0",
     "markdown-it-deflist": "^2.0.3",
     "prettier": "^1.14.3",
     "tslint": "^5.17.0",
