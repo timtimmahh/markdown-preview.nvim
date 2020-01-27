@@ -10,6 +10,7 @@ import footnote from 'markdown-it-footnote'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItToc from 'markdown-it-toc-done-right'
 import markdownDeflist from 'markdown-it-deflist';
+import markdownItPdf from 'markdown-it-pdf'
 
 import mk from './katex'
 import chart from './chart'
@@ -154,6 +155,7 @@ export default class PreviewPage extends React.Component {
         .use(linenumbers)
         .use(mkitMermaid)
         .use(chart.chartPlugin)
+        .use(markdownItPdf)
         .use(blockUml, {
           ...DEFAULT_OPTIONS.uml,
           ...uml
