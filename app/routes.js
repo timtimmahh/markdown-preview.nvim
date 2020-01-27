@@ -93,7 +93,7 @@ use(async (req, res, next) => {
 })
 
 use((req, res, next) => {
-  const dir = await re.plugin.nvim.call('expand', '%:p:h')
+  const dir = await req.plugin.nvim.call('expand', '%:p:h')
   const files = walk(dir)
   const file = dir + decodeURI(req.asPath)
   if (files.includes(file)) {
